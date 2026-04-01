@@ -4,8 +4,6 @@ include 'db.php';
 
 /* ================= SEARCH FILTER ================= */
 $search_nis    = "";
-$search_kelas  = "";
-$search_status = "";
 
 $sql = "
 SELECT
@@ -27,12 +25,9 @@ WHERE 1=1
 
 if(isset($_POST['search'])){
     $search_nis    = mysqli_real_escape_string($conn,$_POST['nis']);
-    // $search_kelas  = mysqli_real_escape_string($conn,$_POST['kelas']);
-    // $search_status = mysqli_real_escape_string($conn,$_POST['status']);
-
+    
     if(!empty($search_nis))   $sql .= " AND ia.nis LIKE '%$search_nis%'";
-    // if(!empty($search_kelas)) $sql .= " AND s.kelas LIKE '%$search_kelas%'";
-    // if(!empty($search_status))$sql .= " AND a.status = '$search_status'";
+    
 }
 
 $sql .= " ORDER BY ia.id_pelaporan DESC";
@@ -81,23 +76,6 @@ $query = mysqli_query($conn,$sql);
                 NIS Siswa
                 <input type="text" name="nis" placeholder="Masukkan NIS..." value="<?= $search_nis ?>">
             </label>
-
-            <!-- Filter Status -->
-            <!-- <label>
-                Status
-                <select name="status" class="form-control">
-                    <option value="">-- Pilih Status --</option>
-                    <option value="Menunggu" <?= $search_status == 'Menunggu' ? 'selected' : '' ?>> Menunggu</option>
-                    <option value="Proses" <?= $search_status == 'Proses' ? 'selected' : '' ?>> Proses</option>
-                    <option value="Selesai" <?= $search_status == 'Selesai' ? 'selected' : '' ?>> Selesai</option>
-                </select>
-            </label> -->
-
-            <!-- Search Kelas -->
-            <!-- <label>
-                </i> Kelas
-                <input type="text" name="kelas" placeholder="Masukkan Kelas..." value="<?= $search_kelas ?>">
-             </label> -->
 
             <div class="filter-actions">
                 <button type="submit" name="search" class="btn">
