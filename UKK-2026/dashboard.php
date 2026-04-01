@@ -42,12 +42,6 @@ $selesai = mysqli_query($conn, "SELECT COUNT(*) as total FROM aspirasi WHERE sta
 $data_selesai = mysqli_fetch_assoc($selesai);
 $total_selesai = $data_selesai['total'];
 
-// Search defaults and list query (shows aspirasi with related data)
-// $search_nis    = "";
-// $search_kelas  = "";
-// $search_status = "";
-// $search_tanggal = "";
-
 $sql = "
 SELECT
     ia.id_pelaporan,
@@ -65,17 +59,6 @@ LEFT JOIN aspirasi a ON ia.id_pelaporan = a.id_pelaporan
 LEFT JOIN siswa s ON ia.nis = s.nis
 WHERE 1=1
 ";
-
-// if(isset($_POST['search'])){
-//     $search_nis    = mysqli_real_escape_string($conn,$_POST['nis']);
-//     $search_kelas  = mysqli_real_escape_string($conn,$_POST['kelas']);
-//     $search_status = mysqli_real_escape_string($conn,$_POST['status']);
-
-//     if(!empty($search_nis))    $sql .= " AND ia.nis LIKE '%$search_nis%'";
-//     if(!empty($search_kelas))  $sql .= " AND s.kelas LIKE '%$search_kelas%'";
-//     if(!empty($search_status)) $sql .= " AND a.status = '$search_status'";
-
-// }
 
 $sql .= " ORDER BY ia.id_pelaporan DESC LIMIT 5";
 $query = mysqli_query($conn,$sql);
@@ -171,9 +154,6 @@ $query = mysqli_query($conn,$sql);
     </div>
 
     <div class="main-container">
-
-
-    <!-- ================= SEARCH + FILTER ================= -->
 
     <!-- ================= TABLE ================= -->
     <div class="table-container">
